@@ -13,11 +13,63 @@ import java.util.Set;
 public class Main {
 
         public static void main(String[] args) throws FileNotFoundException {
-        		String filename = "../graph.txt";
+
+            double numRuns = 20;
+            List<Integer> diameters = new ArrayList<>();
+            List<Double> averageDistances = new ArrayList<>();
+            int minimumDiameter = 0;
+            double minimumAverageDistance = 0;
+            int maximumDiameter = 0;
+            double maximumAverageDistance = 0;
+
+
+            for (int i = 0; i < numRuns; i++) {
+                String filename = "../initialCode (4)/graph" + i + ".txt";
                 System.out.println("Processing " + filename);
                 Diameter d = new Diameter(new File(filename));
                 System.out.println(d.getDiameter());
+                int tempdiameter = d.getDiameter();
+                diameters.add(d.getDiameter());
                 System.out.println(d.getAverageDistance());
+                averageDistances.add(d.getAverageDistance());
+
+                if (i == 0) {
+                    minimumDiameter = d.getDiameter();
+                    maximumDiameter = d.getDiameter();
+                    minimumAverageDistance = d.getAverageDistance();
+                    maximumAverageDistance = d.getAverageDistance();
+                }
+                if (d.getDiameter() < minimumDiameter) {
+                    minimumDiameter = d.getDiameter();
+                }
+                if (d.getDiameter() >= maximumDiameter) {
+                    maximumDiameter = d.getDiameter();
+                }
+                if (d.getAverageDistance() < minimumAverageDistance) {
+                    minimumAverageDistance = d.getAverageDistance();
+                }
+                if (d.getAverageDistance() >= maximumAverageDistance) {
+                    maximumAverageDistance = d.getAverageDistance();
+                }
+            }
+
+            double averageDiameter = 0;
+            double averageAverageDistance = 0;
+
+            for (int i = 0; i < numRuns; i++) {
+                averageDiameter = averageDiameter + diameters.get(i);
+                averageAverageDistance = averageAverageDistance + averageDistances.get(i);
+            }
+
+            averageDiameter = averageDiameter/numRuns;
+            averageAverageDistance = averageAverageDistance/numRuns;
+
+            System.out.println("Minimum diameter: " + minimumDiameter);
+            System.out.println("Maximum diameter: " + maximumDiameter);
+            System.out.println("Average diameter: " + averageDiameter);
+            System.out.println("Minimum average distance: " + minimumAverageDistance);
+            System.out.println("Maximum average distance: " + maximumAverageDistance);
+            System.out.println("Average average distance: " + averageAverageDistance);
 
                 //this is code to collect the data for the presentation                                                     
 

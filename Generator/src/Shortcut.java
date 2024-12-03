@@ -29,15 +29,6 @@ public class Shortcut {
 
 
 		int numGroups = n / groupSize;
-
-		// print the groups
-		for (int i = 0; i < numGroups; i++) {
-			System.out.println("Group " + i + ":");
-			for (int j = 0; j < groupSize; j++) {
-				System.out.print(groups.get(i).get(j).getIndex() + " ");
-			}
-		System.out.println();
-		}
 	
 		// add random shortcuts
 		Random rand = new Random();
@@ -84,14 +75,21 @@ public class Shortcut {
 				int temp = v.getNeighbor().size();
 				if (temp < interGroup + intraGroup + 1) {
 					for (int k = 0; k < interGroup + intraGroup - temp; k++) {
-						int r = rand.nextInt(otherGroups.size());
-						Vertex v2 = otherGroups.get(r);
-						v.addNeighbor(v2);
-						// swap this element with the last element in the list, then remove the last to improve time complexity
-						Vertex tempV = otherGroups.get(otherGroups.size() - 1);
-						otherGroups.set(otherGroups.size() - 1, otherGroups.get(r));
-						otherGroups.set(r, tempV);
-						otherGroups.remove(otherGroups.size() - 1);
+						try {
+							int r = rand.nextInt(otherGroups.size());
+							Vertex v2 = otherGroups.get(r);
+							v.addNeighbor(v2);
+							// swap this element with the last element in the list, then remove the last to improve time complexity
+							Vertex tempV = otherGroups.get(otherGroups.size() - 1);
+							otherGroups.set(otherGroups.size() - 1, otherGroups.get(r));
+							otherGroups.set(r, tempV);
+							otherGroups.remove(otherGroups.size() - 1);
+						}
+						catch (IllegalArgumentException e) {
+							System.out.println("No more vertices to add");
+							e.printStackTrace();
+						}
+
 					}
 				}
 			}
