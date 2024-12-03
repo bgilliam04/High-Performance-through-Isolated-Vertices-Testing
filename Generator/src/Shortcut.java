@@ -63,12 +63,12 @@ public class Shortcut {
 
 		// add shortcuts between groups
 		for (int i = 0; i < numGroups; i++) {
-			List<Vertex> otherGroups = new ArrayList<>();
+			/*List<Vertex> otherGroups = new ArrayList<>();
 			for (int j = 0; j < numGroups; j++) {
 				if (j != i) {
 					otherGroups.addAll(groups.get(j));
 				}
-			}
+			}8?
 
 			// TESTING: print otherGroups
 			/*System.out.println("Other groups for group " + i + ":");
@@ -77,18 +77,39 @@ public class Shortcut {
 			}*/
 
 			for (int j = 0; j < groupSize; j++) {
+
+				List<Vertex> otherGroups = new ArrayList<>();
+				for (int l = 0; l < numGroups; l++) {
+					if (l != i) {
+						for (int k = 0; k < groupSize; k++) {
+							Vertex v1 = groups.get(l).get(k);
+							if (v1.getNeighbor().size() < y + z || v1.getNeighbor().contains(groups.get(i).get(j))) {
+								otherGroups.add(groups.get(l).get(k));
+							}
+						}
+						
+					}
+				}
+				
 				Vertex v = groups.get(i).get(j);
 				int temp = v.getNeighbor().size();
 				for (int k = 0; k < y + z - temp; k++) {
 					int r = rand.nextInt(otherGroups.size());
 					Vertex v2 = otherGroups.get(r);
-					if (v.getNeighbor().contains(v2)
+					v.addNeighbor(v2);
+					// swap this element with the last element in the list, then remove the last to improve time complexity
+					Vertex tempV = otherGroups.get(otherGroups.size() - 1);
+					otherGroups.set(otherGroups.size() - 1, otherGroups.get(r));
+					otherGroups.set(r, tempV);
+					otherGroups.remove(otherGroups.size() - 1);
+					/*if (v.getNeighbor().contains(v2)
 							|| v2.getNeighbor().size() == y + z) {
 						k--;
 					} else {
 						v.addNeighbor(v2);
+						// swap this element with the last element in the list, then remove the last to improve time complexity
 						otherGroups.remove(r);
-					}
+					}*/
 				}
 			}
 
