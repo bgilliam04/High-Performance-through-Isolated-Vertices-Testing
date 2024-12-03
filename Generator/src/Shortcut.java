@@ -10,7 +10,7 @@ public class Shortcut {
 	int n;
 	int groupSize;
 
-	public Shortcut(int n, int groupSize, int y, int z, String filename) {
+	public Shortcut(int n, int groupSize, int interGroup, int intraGroup, String filename) {
 		this.n = n;
 
 		// generate vertices
@@ -44,14 +44,14 @@ public class Shortcut {
 		// for each group
 		for (List<Vertex> group : groups) {
 			for (Vertex v : group) {
-				if (v.getNeighbor().size() < y) {
+				if (v.getNeighbor().size() < interGroup) {
 					int temp = v.getNeighbor().size();
-					for (int j = 0; j < y - temp; j++) {
+					for (int j = 0; j < interGroup - temp; j++) {
 						int r = rand.nextInt(groupSize);
 						// re-random it if there already an edge or the vertices meet its maximum
 						// neighbors
 						if (r == v.getIndex() || v.getNeighbor().contains(group.get(r))
-								|| group.get(r).getNeighbor().size() == y) {
+								|| group.get(r).getNeighbor().size() == interGroup) {
 							j--;
 						} else {
 							v.addNeighbor(group.get(r));
@@ -83,7 +83,7 @@ public class Shortcut {
 					if (l != i) {
 						for (int k = 0; k < groupSize; k++) {
 							Vertex v1 = groups.get(l).get(k);
-							if (v1.getNeighbor().size() < y + z || v1.getNeighbor().contains(groups.get(i).get(j))) {
+							if (v1.getNeighbor().size() < interGroup + intraGroup || v1.getNeighbor().contains(groups.get(i).get(j))) {
 								otherGroups.add(groups.get(l).get(k));
 							}
 						}
@@ -93,7 +93,7 @@ public class Shortcut {
 				
 				Vertex v = groups.get(i).get(j);
 				int temp = v.getNeighbor().size();
-				for (int k = 0; k < y + z - temp; k++) {
+				for (int k = 0; k < interGroup + intraGroup - temp; k++) {
 					int r = rand.nextInt(otherGroups.size());
 					Vertex v2 = otherGroups.get(r);
 					v.addNeighbor(v2);
@@ -103,7 +103,7 @@ public class Shortcut {
 					otherGroups.set(r, tempV);
 					otherGroups.remove(otherGroups.size() - 1);
 					/*if (v.getNeighbor().contains(v2)
-							|| v2.getNeighbor().size() == y + z) {
+							|| v2.getNeighbor().size() == interGroup + intraGroup) {
 						k--;
 					} else {
 						v.addNeighbor(v2);
@@ -117,14 +117,14 @@ public class Shortcut {
 
 
 		/*for (int i = 0; i < n; i++) {
-			if (vertices.get(i).getNeighbor().size() < y) {
+			if (vertices.get(i).getNeighbor().size() < interGroup) {
 				int temp = vertices.get(i).getNeighbor().size();
-				for (int j = 0; j < y - temp; j++) {
+				for (int j = 0; j < interGroup - temp; j++) {
 					int r = rand.nextInt(n);
 					// re-random it if there already an edge or the vertices meet its maximum
 					// neighbors
 					if (r == i || vertices.get(i).getNeighbor().contains(vertices.get(r))
-							|| vertices.get(r).getNeighbor().size() == y) {
+							|| vertices.get(r).getNeighbor().size() == interGroup) {
 						j--;
 					} else {
 						vertices.get(i).addNeighbor(vertices.get(r));
