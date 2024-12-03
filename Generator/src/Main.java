@@ -6,7 +6,7 @@ public class Main {
         		System.out.println("Creating the graph file");
                         // 3 or more intra links per group
                         
-        		Shortcut sc = new Shortcut(64, 8, 4, 4 ,"../graph.txt");
+        		Shortcut sc = new Shortcut(128, 8, 8, 4 ,"../graph.txt");
                 System.out.println(sc);
 //              NonRandom nr = new NonRandom(1024,28);                                     
 //              System.out.println(nr);                                                    
