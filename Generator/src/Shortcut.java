@@ -27,7 +27,17 @@ public class Shortcut {
 			groups.add(group);
 		}
 
+
 		int numGroups = n / groupSize;
+
+		// print the groups
+		for (int i = 0; i < numGroups; i++) {
+			System.out.println("Group " + i + ":");
+			for (int j = 0; j < groupSize; j++) {
+				System.out.print(groups.get(i).get(j).getIndex() + " ");
+			}
+		System.out.println();
+		}
 	
 		// add random shortcuts
 		Random rand = new Random();
@@ -44,7 +54,7 @@ public class Shortcut {
 					}
 				}
 
-				if (v.getNeighbor().size() < interGroup) {
+				if (v.getNeighbor().size() < interGroup + 1) {
 					int temp = v.getNeighbor().size();
 					for (int j = 0; j < interGroup - temp; j++) {
 						int r = rand.nextInt(groupSize);
@@ -72,7 +82,7 @@ public class Shortcut {
 				
 				Vertex v = groups.get(i).get(j);
 				int temp = v.getNeighbor().size();
-				if (temp < interGroup + intraGroup) {
+				if (temp < interGroup + intraGroup + 1) {
 					for (int k = 0; k < interGroup + intraGroup - temp; k++) {
 						int r = rand.nextInt(otherGroups.size());
 						Vertex v2 = otherGroups.get(r);
