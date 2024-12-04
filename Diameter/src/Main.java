@@ -14,7 +14,7 @@ public class Main {
 
         public static void main(String[] args) throws FileNotFoundException {
 
-            double numRuns = 20;
+            double numRuns = 300;
             List<Integer> diameters = new ArrayList<>();
             List<Double> averageDistances = new ArrayList<>();
             int minimumDiameter = 0;

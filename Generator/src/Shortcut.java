@@ -38,18 +38,19 @@ public class Shortcut {
 			for (Vertex v : group) {
 				List<Vertex> otherVertices = new ArrayList<>();
 				for (Vertex v1 : vertices) {
-					if (!group.contains(v1)) {
-						if (v1.getNeighbor().size() < interGroup || v1.getNeighbor().contains(v)) {
+					if (group.contains(v1)) {
+						if (v1.getNeighbor().size() < interGroup && !(v1.getNeighbor().contains(v))) {
 							otherVertices.add(v1);
 						}
 					}
+					
 				}
 
 				if (v.getNeighbor().size() < interGroup + 1) {
 					int temp = v.getNeighbor().size();
 					for (int j = 0; j < interGroup - temp; j++) {
-						int r = rand.nextInt(groupSize);
-						v.addNeighbor(group.get(r));
+						int r = rand.nextInt(otherVertices.size());
+						v.addNeighbor(otherVertices.get(r));
 					}
 				}
 			}
@@ -63,7 +64,7 @@ public class Shortcut {
 					if (l != i) {
 						for (int k = 0; k < groupSize; k++) {
 							Vertex v1 = groups.get(l).get(k);
-							if (v1.getNeighbor().size() < interGroup + intraGroup || v1.getNeighbor().contains(groups.get(i).get(j))) {
+							if (v1.getNeighbor().size() < interGroup + intraGroup && !(v1.getNeighbor().contains(groups.get(i).get(j)))) {
 								otherGroups.add(groups.get(l).get(k));
 							}
 						}
@@ -92,6 +93,22 @@ public class Shortcut {
 
 					}
 				}
+
+			}
+
+			try {
+				for (List<Vertex> group : groups) {
+					for (Vertex v : group) {
+						if (v.getNeighbor().size() == 0) {
+							throw new IllegalArgumentException();
+						}
+					}
+				}
+			}
+
+			catch (IllegalArgumentException e) {
+				System.out.println("No more vertices to add");
+				e.printStackTrace();
 			}
 
 		}
