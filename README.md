@@ -15,9 +15,10 @@ Inter group connections (or global links) are made by iterating through each gro
 In the Diameter folder, there is a `Diameter.java` and `Edge.java` class that were not written by us, so no documentation is provided for these. However they will calculate the diameter and average shortest path for the provided files.
 
 ## How To Run the Code
-1. First 
+1. First go to the `Main.java` class in the `Generator` folder. Then enter the `numRuns` 
 
 ## Participants
 
-Bria Gilliam - @bgilliam04
-Dibyasha Sharma - @dibyashaS
+Bria Gilliam - [@bgilliam04](https://github.com/bgilliam04)
+
+Dibyasha Sharma - [@dibyashaS](https://github.com/dibyashaS)
